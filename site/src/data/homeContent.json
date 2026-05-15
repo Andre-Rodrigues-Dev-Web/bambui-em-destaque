@@ -1,0 +1,48 @@
+{
+  "highlights": [
+    {
+      "id": "1",
+      "title": "Preparativos para a EXPO Bambuí 2026 a todo vapor!",
+      "image_url": "https://jornalbambui.com.br/wp-content/uploads/2026/04/expo-bambui.jpg",
+      "link": "https://jornalbambui.com.br",
+      "type": "large",
+      "share_links": { "whatsapp": "#", "telegram": "#" }
+    },
+    {
+      "id": "2",
+      "title": "IFMG Campus Bambuí inaugura o CanastraHub para inovação tecnológica",
+      "image_url": "https://jornalbambui.com.br/wp-content/uploads/2026/04/canastrahub.jpg",
+      "link": "https://jornalbambui.com.br",
+      "type": "small",
+      "share_links": { "whatsapp": "#", "facebook": "#" }
+    }
+  ],
+  "photos": [
+    { "id": "1", "image_url": "https://picsum.photos/seed/bambui1/400/300", "alt": "Cidade 1" },
+    { "id": "2", "image_url": "https://picsum.photos/seed/bambui2/400/300", "alt": "Cidade 2" },
+    { "id": "3", "image_url": "https://picsum.photos/seed/bambui3/400/300", "alt": "Cidade 3" },
+    { "id": "4", "image_url": "https://picsum.photos/seed/bambui4/400/300", "alt": "Cidade 4" },
+    { "id": "5", "image_url": "https://picsum.photos/seed/bambui5/400/300", "alt": "Cidade 5" },
+    { "id": "6", "image_url": "https://picsum.photos/seed/bambui6/400/300", "alt": "Cidade 6" }
+  ],
+  "hotels": [
+    { "id": "1", "name": "Hotel A", "image_url": "https://picsum.photos/seed/hotelA/400/300", "link": "#" },
+    { "id": "2", "name": "Hotel B", "image_url": "https://picsum.photos/seed/hotelB/400/300", "link": "#" },
+    { "id": "3", "name": "Hotel C", "image_url": "https://picsum.photos/seed/hotelC/400/300", "link": "#" }
+  ],
+  "events": [
+    { "id": "1", "image_url": "https://picsum.photos/seed/event1/800/450" },
+    { "id": "2", "image_url": "https://picsum.photos/seed/event2/800/450" }
+  ],
+  "ads": [
+    {
+      "id": "ad1",
+      "type": "native",
+      "label": "Patrocinado",
+      "title": "Velance: A tecnologia que sua empresa precisa",
+      "description": "Sistemas modernos, sites rápidos e marketing digital de resultados.",
+      "image_url": "https://picsum.photos/seed/ad1/300/250",
+      "link": "https://velance.com.br"
+    }
+  ]
+}
