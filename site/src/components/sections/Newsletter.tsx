@@ -10,7 +10,7 @@ export default function Newsletter() {
     e.preventDefault()
     setStatus('loading')
     
-    // Simulate API call or connect to Supabase
+    // Simulate API call
     setTimeout(() => {
       setStatus('success')
       setEmail('')

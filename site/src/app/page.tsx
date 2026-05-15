@@ -6,7 +6,6 @@ import Sidebar from "@/components/layout/Sidebar";
 import Newsletter from "@/components/sections/Newsletter";
 import { Highlight, Photo, Hotel, Event, Ad } from "@/types";
 import homeContent from "@/data/homeContent.json";
-import { createStaticServerSupabaseClient } from '@/lib/supabase'
 
 type HomeContent = {
   highlights: Highlight[];
@@ -17,28 +16,7 @@ type HomeContent = {
 };
 
 async function getHomeData() {
-  const fallbackContent: HomeContent = homeContent as HomeContent;
-  let content: HomeContent = { ...fallbackContent };
-
-  const useSupabase = process.env.NEXT_PUBLIC_USE_SUPABASE === 'true'
-  if (!useSupabase) {
-    return content
-  }
-
-  try {
-    const supabase = createStaticServerSupabaseClient()
-    const { data: highlightsFromDb, error } = await supabase.from('highlights').select('*')
-
-    if (!error && highlightsFromDb) {
-      content.highlights = highlightsFromDb as Highlight[]
-    } else if (error) {
-      console.warn('Supabase query failed, using JSON content:', error)
-    }
-  } catch (error) {
-    console.error('Supabase not available, using JSON content:', error)
-  }
-
-  return content
+  return homeContent as HomeContent
 }
 
 export default async function Home() {
