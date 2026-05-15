@@ -6,7 +6,7 @@ import Sidebar from "@/components/layout/Sidebar";
 import Newsletter from "@/components/sections/Newsletter";
 import { Highlight, Photo, Hotel, Event, Ad } from "@/types";
 import homeContent from "@/data/homeContent.json";
-import { createClient } from '@/lib/supabase'
+import { createStaticServerSupabaseClient } from '@/lib/supabase'
 
 type HomeContent = {
   highlights: Highlight[];
@@ -21,7 +21,7 @@ async function getHomeData() {
   let content: HomeContent = { ...fallbackContent };
 
   try {
-    const supabase = await createClient()
+    const supabase = createStaticServerSupabaseClient()
     const { data: highlightsFromDb, error } = await supabase.from('highlights').select('*')
 
     if (!error && highlightsFromDb) {
