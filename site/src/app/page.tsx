@@ -20,12 +20,19 @@ async function getHomeData() {
   const fallbackContent: HomeContent = homeContent as HomeContent;
   let content: HomeContent = { ...fallbackContent };
 
+  const useSupabase = process.env.NEXT_PUBLIC_USE_SUPABASE === 'true'
+  if (!useSupabase) {
+    return content
+  }
+
   try {
     const supabase = createStaticServerSupabaseClient()
     const { data: highlightsFromDb, error } = await supabase.from('highlights').select('*')
 
     if (!error && highlightsFromDb) {
       content.highlights = highlightsFromDb as Highlight[]
+    } else if (error) {
+      console.warn('Supabase query failed, using JSON content:', error)
     }
   } catch (error) {
     console.error('Supabase not available, using JSON content:', error)
