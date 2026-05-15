@@ -9,12 +9,15 @@ if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error('Missing required Supabase environment variables: NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY')
 }
 
+const supabaseUrlRequired = supabaseUrl
+const supabaseAnonKeyRequired = supabaseAnonKey
+
 export async function createClient() {
   const cookieStore = await cookies()
 
   return createServerClient(
-    supabaseUrl,
-    supabaseServiceRoleKey ?? supabaseAnonKey,
+    supabaseUrlRequired,
+    supabaseServiceRoleKey ?? supabaseAnonKeyRequired,
     {
       cookies: {
         get(name: string) {
@@ -41,7 +44,7 @@ export async function createClient() {
 
 export function createBrowserSupabaseClient() {
   return createBrowserClient(
-    supabaseUrl,
-    supabaseAnonKey
+    supabaseUrlRequired,
+    supabaseAnonKeyRequired
   )
 }
