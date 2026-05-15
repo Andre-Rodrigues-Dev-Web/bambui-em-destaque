@@ -5,16 +5,17 @@ import CityEvents from "@/components/sections/CityEvents";
 import Sidebar from "@/components/layout/Sidebar";
 import Newsletter from "@/components/sections/Newsletter";
 import { Highlight, Photo, Hotel, Event, Ad } from "@/types";
-
-// Note: In a real implementation, you would fetch this from Supabase
-// import { createClient } from '@/lib/supabase'
+import { createClient } from '@/lib/supabase'
 
 async function getHomeData() {
-  // const supabase = createClient()
-  // const { data: highlights } = await supabase.from('highlights').select('*')
-  
-  // Mock data for initial demonstration
-  const highlights: Highlight[] = [
+  const supabase = await createClient()
+  const { data: highlightsFromDb, error } = await supabase.from('highlights').select('*')
+
+  if (error) {
+    console.error('Supabase fetch failed:', error)
+  }
+
+  const highlights: Highlight[] = highlightsFromDb ?? [
     {
       id: '1',
       title: 'Preparativos para a EXPO Bambuí 2026 a todo vapor!',
