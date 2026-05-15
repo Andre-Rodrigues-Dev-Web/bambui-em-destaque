@@ -4,15 +4,9 @@
   --color-primary: #003d5b;
   --color-primary-hover: #002a40;
   --color-accent: #007bff;
+  --color-background: #f0f2f5;
+  --color-foreground: #333333;
   --font-outfit: "Outfit", sans-serif;
-}
-
-:root {
-  --primary: #003d5b;
-  --primary-hover: #002a40;
-  --accent: #007bff;
-  --background: #f0f2f5;
-  --foreground: #333333;
 }
 
 @layer base {
