@@ -3,7 +3,7 @@
     {
       "id": "1",
       "title": "Preparativos para a EXPO Bambuí 2026 a todo vapor!",
-      "image_url": "https://jornalbambui.com.br/wp-content/uploads/2026/04/expo-bambui.jpg",
+      "image_url": "/banner-topo.png",
       "link": "https://jornalbambui.com.br",
       "type": "large",
       "share_links": { "whatsapp": "#", "telegram": "#" }
@@ -11,7 +11,7 @@
     {
       "id": "2",
       "title": "IFMG Campus Bambuí inaugura o CanastraHub para inovação tecnológica",
-      "image_url": "https://jornalbambui.com.br/wp-content/uploads/2026/04/canastrahub.jpg",
+      "image_url": "/banner-topo.png",
       "link": "https://jornalbambui.com.br",
       "type": "small",
       "share_links": { "whatsapp": "#", "facebook": "#" }

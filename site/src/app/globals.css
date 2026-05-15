@@ -39,7 +39,7 @@
 
 /* Original Site ported styles */
 .header-banner {
-  background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url('https://raw.githubusercontent.com/Andre-Rodrigues-Dev-Web/bambui-em-destaque/main/site/assets/imagens/banner-topo.png');
+  background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url('/banner-topo.png');
   background-size: cover;
   background-position: center;
   position: relative;

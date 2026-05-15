@@ -19,13 +19,13 @@ export const metadata: Metadata = {
     url: "https://www.bambuiemdestaque.com.br/",
     title: "Bambuí em Destaque - Notícias, Turismo e História",
     description: "O portal mais completo de Bambuí. Encontre notícias, guia de turismo, história da cidade, horários de ônibus e muito mais.",
-    images: ["/assets/images/logo.png"],
+    images: ["/logo.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Bambuí em Destaque - Notícias, Turismo e História",
     description: "O portal mais completo de Bambuí. Encontre notícias, guia de turismo, história da cidade, horários de ônibus e muito mais.",
-    images: ["/assets/images/logo.png"],
+    images: ["/logo.png"],
   },
 };
 

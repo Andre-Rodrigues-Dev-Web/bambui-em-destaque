@@ -62,12 +62,12 @@ export default function Header() {
         <div className="logo-section py-8 flex justify-center">
           <Link href="/">
             <Image 
-              src="https://raw.githubusercontent.com/Andre-Rodrigues-Dev-Web/bambui-em-destaque/main/site/assets/imagens/logo.png" 
+              src="/logo.png"
               alt="Logo Bambuí em Destaque"
               width={280}
               height={140}
               className="h-[120px] md:h-[140px] w-auto drop-shadow-md"
-              priority
+              preload
             />
           </Link>
         </div>

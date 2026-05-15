@@ -21,6 +21,7 @@ export default function Highlights({ highlights }: HighlightsProps) {
                 alt={item.title} 
                 fill
                 loading="lazy"
+                sizes={item.type === 'large' ? '(max-width: 1024px) 100vw, 680px' : '(max-width: 1024px) 100vw, 440px'}
                 className="object-cover group-hover:scale-105 transition-transform duration-500"
               />
             </div>

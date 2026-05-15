@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="footer-grid">
           <div className="flex flex-col gap-5">
             <Image 
-              src="https://raw.githubusercontent.com/Andre-Rodrigues-Dev-Web/bambui-em-destaque/main/site/assets/imagens/logo.png" 
+              src="/logo.png"
               alt="Logo Bambuí em Destaque"
               width={160}
               height={80}

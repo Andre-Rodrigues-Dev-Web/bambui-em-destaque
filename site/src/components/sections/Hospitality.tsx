@@ -19,6 +19,7 @@ export default function Hospitality({ hotels }: HospitalityProps) {
                 alt={hotel.name} 
                 fill
                 loading="lazy" 
+                sizes="(max-width: 1024px) 50vw, 260px"
                 className="object-cover group-hover:scale-105 transition-transform duration-500"
               />
             </div>

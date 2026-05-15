@@ -31,6 +31,7 @@ export default function Sidebar({ ads }: SidebarProps) {
                       src={ad.image_url} 
                       alt={ad.title || 'Anúncio'} 
                       fill
+                      sizes="(max-width: 1024px) 100vw, 320px"
                       className="object-cover"
                     />
                   </div>
