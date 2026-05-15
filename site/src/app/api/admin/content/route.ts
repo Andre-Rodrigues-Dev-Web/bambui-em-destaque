@@ -1,10 +1,25 @@
 import { NextResponse } from 'next/server'
 import { promises as fs } from 'fs'
 import path from 'path'
+import { cookies } from 'next/headers'
 
 const filePath = path.join(process.cwd(), 'src', 'data', 'homeContent.json')
 
+async function isAuthenticated() {
+  const cookieStore = await cookies()
+  const session = cookieStore.get('admin_session')
+  return session?.value === 'authenticated'
+}
+
 export async function GET() {
+  const authenticated = await isAuthenticated()
+  if (!authenticated) {
+    return NextResponse.json(
+      { message: 'Não autorizado' },
+      { status: 401 }
+    )
+  }
+
   try {
     const fileContents = await fs.readFile(filePath, 'utf-8')
     const json = JSON.parse(fileContents)
@@ -18,6 +33,14 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const authenticated = await isAuthenticated()
+  if (!authenticated) {
+    return NextResponse.json(
+      { message: 'Não autorizado' },
+      { status: 401 }
+    )
+  }
+
   try {
     const data = await request.json()
     const formatted = JSON.stringify(data, null, 2)

@@ -1,32 +1,50 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { LogOut } from 'lucide-react'
 
 export default function AdminPage() {
+  const router = useRouter()
   const [content, setContent] = useState('')
   const [isLoading, setIsLoading] = useState(true)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [statusMessage, setStatusMessage] = useState<string | null>(null)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   useEffect(() => {
-    async function loadContent() {
+    async function checkAuth() {
       try {
-        const response = await fetch('/api/admin/content')
+        const response = await fetch('/api/auth/check')
         if (!response.ok) {
-          throw new Error(`Falha ao carregar conteúdo: ${response.status}`)
+          router.push('/admin/login')
+          return
         }
-
-        const data = await response.json()
-        setContent(JSON.stringify(data, null, 2))
+        setIsAuthenticated(true)
+        loadContent()
       } catch (error) {
-        setErrorMessage('Não foi possível carregar o conteúdo. Verifique o servidor.')
-      } finally {
-        setIsLoading(false)
+        router.push('/admin/login')
       }
     }
 
-    loadContent()
-  }, [])
+    checkAuth()
+  }, [router])
+
+  async function loadContent() {
+    try {
+      const response = await fetch('/api/admin/content')
+      if (!response.ok) {
+        throw new Error(`Falha ao carregar conteúdo: ${response.status}`)
+      }
+
+      const data = await response.json()
+      setContent(JSON.stringify(data, null, 2))
+    } catch (error) {
+      setErrorMessage('Não foi possível carregar o conteúdo. Verifique o servidor.')
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   async function handleSave() {
     setStatusMessage(null)
@@ -55,14 +73,36 @@ export default function AdminPage() {
     }
   }
 
+  async function handleLogout() {
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' })
+      router.push('/admin/login')
+    } catch (error) {
+      console.error('Erro ao fazer logout:', error)
+    }
+  }
+
+  if (!isAuthenticated) {
+    return null
+  }
+
   return (
     <main className="min-h-screen bg-slate-50 py-14">
       <div className="mx-auto max-w-6xl px-5">
-        <div className="mb-8 rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-          <h1 className="text-3xl font-bold text-slate-900">Painel Admin</h1>
-          <p className="mt-2 text-slate-600">
-            Edite os dados do site e salve o arquivo JSON de conteúdo.
-          </p>
+        <div className="mb-8 rounded-3xl border border-slate-200 bg-white p-8 shadow-sm flex justify-between items-start">
+          <div>
+            <h1 className="text-3xl font-bold text-slate-900">Painel Admin</h1>
+            <p className="mt-2 text-slate-600">
+              Edite os dados do site e salve o arquivo JSON de conteúdo.
+            </p>
+          </div>
+          <button
+            onClick={handleLogout}
+            className="inline-flex items-center gap-2 rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-red-700"
+          >
+            <LogOut size={18} />
+            Sair
+          </button>
         </div>
 
         <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
