@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { LogOut } from 'lucide-react'
 
@@ -12,6 +12,22 @@ export default function AdminPage() {
   const [statusMessage, setStatusMessage] = useState<string | null>(null)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
+  const loadContent = useCallback(async () => {
+    try {
+      const response = await fetch('/api/admin/content')
+      if (!response.ok) {
+        throw new Error(`Falha ao carregar conteúdo: ${response.status}`)
+      }
+
+      const data = await response.json()
+      setContent(JSON.stringify(data, null, 2))
+    } catch {
+      setErrorMessage('Não foi possível carregar o conteúdo. Verifique o servidor.')
+    } finally {
+      setIsLoading(false)
+    }
+  }, [])
+
   useEffect(() => {
     async function checkAuth() {
       try {
@@ -22,29 +38,13 @@ export default function AdminPage() {
         }
         setIsAuthenticated(true)
         loadContent()
-      } catch (error) {
+      } catch {
         router.push('/admin/login')
       }
     }
 
     checkAuth()
-  }, [router])
-
-  async function loadContent() {
-    try {
-      const response = await fetch('/api/admin/content')
-      if (!response.ok) {
-        throw new Error(`Falha ao carregar conteúdo: ${response.status}`)
-      }
-
-      const data = await response.json()
-      setContent(JSON.stringify(data, null, 2))
-    } catch (error) {
-      setErrorMessage('Não foi possível carregar o conteúdo. Verifique o servidor.')
-    } finally {
-      setIsLoading(false)
-    }
-  }
+  }, [loadContent, router])
 
   async function handleSave() {
     setStatusMessage(null)
@@ -77,8 +77,8 @@ export default function AdminPage() {
     try {
       await fetch('/api/auth/logout', { method: 'POST' })
       router.push('/admin/login')
-    } catch (error) {
-      console.error('Erro ao fazer logout:', error)
+    } catch {
+      console.error('Erro ao fazer logout')
     }
   }
 

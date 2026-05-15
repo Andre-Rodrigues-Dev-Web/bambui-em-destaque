@@ -34,3 +34,14 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Admin login
+
+The admin login API requires these environment variables:
+
+```bash
+ADMIN_EMAIL=admin@example.com
+ADMIN_PASSWORD=change-me
+```
+
+Set both values locally in `.env.local` and in the Vercel project environment variables for Production. After changing Vercel environment variables, redeploy the project so `/api/auth/login` can read them at runtime.

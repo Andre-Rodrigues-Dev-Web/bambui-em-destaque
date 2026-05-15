@@ -1,22 +1,27 @@
 import { NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
+import { ADMIN_SESSION_COOKIE, ADMIN_SESSION_VALUE, getAdminCredentials } from '@/lib/adminAuth'
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json()
+    const body = await request.json().catch(() => null)
+    if (!body || typeof body !== 'object') {
+      return NextResponse.json(
+        { message: 'Requisição inválida.' },
+        { status: 400 }
+      )
+    }
+
     const { email, password } = body
 
-    if (!email || !password) {
+    if (typeof email !== 'string' || typeof password !== 'string' || !email || !password) {
       return NextResponse.json(
         { message: 'Email e senha são obrigatórios.' },
         { status: 400 }
       )
     }
 
-    const adminEmail = process.env.ADMIN_EMAIL?.trim()
-    const adminPassword = process.env.ADMIN_PASSWORD?.trim()
-
-    if (!adminEmail || !adminPassword) {
+    const credentials = getAdminCredentials()
+    if (!credentials) {
       console.error('Variáveis de ambiente ADMIN_EMAIL ou ADMIN_PASSWORD não configuradas')
       return NextResponse.json(
         { message: 'Erro de configuração do servidor.' },
@@ -24,12 +29,12 @@ export async function POST(request: Request) {
       )
     }
 
-    const emailMatch = email.trim() === adminEmail
-    const passwordMatch = password.trim() === adminPassword
+    const emailMatch = email.trim() === credentials.email
+    const passwordMatch = password.trim() === credentials.password
 
     if (emailMatch && passwordMatch) {
-      const cookieStore = await cookies()
-      cookieStore.set('admin_session', 'authenticated', {
+      const response = NextResponse.json({ message: 'Login bem-sucedido' })
+      response.cookies.set(ADMIN_SESSION_COOKIE, ADMIN_SESSION_VALUE, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',
@@ -37,7 +42,7 @@ export async function POST(request: Request) {
         path: '/',
       })
 
-      return NextResponse.json({ message: 'Login bem-sucedido' })
+      return response
     }
 
     return NextResponse.json(

@@ -31,7 +31,7 @@ export default function LoginPage() {
       }
 
       router.push('/admin')
-    } catch (error) {
+    } catch {
       setErrorMessage('Erro ao conectar ao servidor')
     } finally {
       setIsLoading(false)
